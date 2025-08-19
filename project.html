@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Project Details | SumanthKumbhagiri</title>
+  <style>
+    :root{--bg:#ffffff;--accent:#ff2e63;--glass-bg:rgba(255,255,255,.6);--glass-border:rgba(200,200,200,.4);}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:#111;line-height:1.7}
+    html{scroll-behavior:smooth}
+
+    /* ---------- HERO ---------- */
+    .hero{
+      height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+      background:linear-gradient(135deg,#ffe6f0 0%,#ffffff 100%);
+    }
+    .hero h1{
+      font-size:clamp(2rem,6vw + 1rem,4rem);
+      background:linear-gradient(90deg,#111 50%,var(--accent) 90%);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+      border-right:3px solid var(--accent);
+      white-space:nowrap;overflow:hidden;width:0;
+      animation:typing 3s steps(30,end) forwards,blink .7s infinite 3s;
+    }
+    @keyframes typing{to{width:30ch}}
+    @keyframes blink{50%{border-color:transparent}}
+    .hero p{margin-top:1rem;font-size:1.2rem;opacity:0;animation:fadeIn 1s 3.2s forwards}
+    @keyframes fadeIn{to{opacity:1}}
+
+    /* ---------- ROLL-IN CARDS ---------- */
+    .roll-container{max-width:900px;margin:auto;padding:4rem 1.5rem}
+    .roll-card{
+      background:var(--glass-bg);border:1px solid var(--glass-border);
+      border-radius:20px;padding:2rem;margin:4rem 0;
+      box-shadow:0 4px 12px rgba(0,0,0,.08);
+      opacity:0;transform:rotateX(90deg) scale(.8);
+      transition:transform 1s ease,opacity 1s ease,box-shadow .4s;
+    }
+    .roll-card.show{opacity:1;transform:rotateX(0) scale(1)}
+    .roll-card:hover{
+      transform:rotateY(-5deg) rotateX(2deg) translateY(-10px);
+      box-shadow:0 12px 30px rgba(255,46,99,.25);
+    }
+    .roll-card h3{color:var(--accent);margin-bottom:.5rem;font-size:1.4rem}
+    .roll-card ul{list-style:none;font-size:.95rem;padding-left:0}
+    .roll-card li{margin:.3rem 0}
+
+    .back-btn{
+      position:fixed;top:1rem;left:1rem;
+      padding:.6rem 1.2rem;background:var(--glass-bg);border:1px solid var(--glass-border);
+      border-radius:50px;text-decoration:none;color:#111;font-weight:600;
+      backdrop-filter:blur(10px);z-index:1000;transition:.3s;
+    }
+    .back-btn:hover{background:var(--accent);color:#fff}
+  </style>
+</head>
+<body>
+  <a class="back-btn" href="index.html">&#8592; Back to portfolio</a>
+
+  <header class="hero">
+    <h1>Project Deep-Dive</h1>
+    <p>Scroll to watch the cards roll in</p>
+  </header>
+
+  <main class="roll-container">
+    <!-- Fake Currency Detection -->
+    <div class="roll-card">
+      <h3>Fake Currency Detection (CNN)</h3>
+      <ul>
+        <li><strong>Goal:</strong> Real-time counterfeit detection via web upload.</li>
+        <li><strong>Stack:</strong> HTML/CSS, Flask, TensorFlow Lite.</li>
+        <li><strong>Pipeline:</strong> Grayscale → Resize → CLAHE → CNN → Result.</li>
+        <li><strong>Accuracy:</strong> 98.7 % on a 20 k-note dataset.</li>
+        <li><strong>Deploy:</strong> Docker container on AWS EC2 + CloudFront CDN.</li>
+      </ul>
+    </div>
+
+    <!-- Morse Code Translator -->
+    <div class="roll-card">
+      <h3>Morse Code Translator</h3>
+      <ul>
+        <li><strong>Function:</strong> Text ↔ Morse conversion in real time.</li>
+        <li><strong>Tech:</strong> Vanilla JS frontend, Flask backend.</li>
+        <li><strong>Extras:</strong> audio playback, dark-mode toggle.</li>
+      </ul>
+    </div>
+  </main>
+
+  <script>
+    /* roll-in on scroll */
+    const io=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting) e.target.classList.add('show');
+      });
+    },{threshold:.15});
+    document.querySelectorAll('.roll-card').forEach(card=>io.observe(card));
+  </script>
+</body>
+</html>
